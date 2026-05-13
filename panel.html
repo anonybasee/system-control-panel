@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SIMULATED</title>
+
+<style>
+body {
+  margin: 0;
+  background: black;
+  color: #00ff00;
+  font-family: "Courier New", monospace;
+  overflow: hidden;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+h1 {
+  font-size: 60px;
+  color: red;
+  text-shadow: 0 0 20px red, 0 0 40px darkred;
+  animation: blink 0.5s infinite alternate;
+}
+
+h2 {
+  font-size: 25px;
+  color: #00ff00;
+}
+
+.warning {
+  margin-top: 20px;
+  font-size: 18px;
+  color: white;
+  opacity: 0.8;
+}
+
+@keyframes blink {
+  from { opacity: 1; }
+  to { opacity: 0.2; }
+}
+
+.glitch {
+  animation: glitch 0.2s infinite;
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(2px, -2px); }
+  60% { transform: translate(-2px, -2px); }
+  80% { transform: translate(2px, 2px); }
+  100% { transform: translate(0); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="center glitch">
+  <h1>YOU ARE MOVING</h1>
+  <h2>ACCESS GRANTED BY UNKNOWN SOURCE</h2>
+  <div class="warning">
+    SYSTEM BREACH DETECTED...<br>
+    FILES COMPROMISED...<br>
+    LOCATION TRACKING ACTIVE...<br>
+    DATA BROKED...<br><br>
+  </div>
+</div>
+<div class="center">
+  <h1 id="text">Starting...</h1>
+</div>
+<script>
+let i = 1;
+const text = document.getElementById("text");
+
+const interval = setInterval(() => {
+  text.innerHTML = i;
+  i++;
+
+  if (i > 100) {
+    clearInterval(interval);
+
+    text.innerHTML = "SIMULATION STARTED";
+
+    setTimeout(() => {
+      window.close(); 
+      // If browser blocks close, you can use:
+      // window.location.href = "about:blank";
+    }, 2000);
+  }
+}, 50); // speed (higher = slower)
+</script>
+</body>
+</html>
