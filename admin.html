@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SYSTEM PANEL</title>
+
+<style>
+body {
+  margin:0;
+  background:#050505;
+  color:#00ff00;
+  font-family: monospace;
+  padding:20px;
+}
+
+h2 {
+  text-shadow: 0 0 10px #00ff00;
+}
+
+.terminal {
+  border:1px solid #00ff00;
+  padding:15px;
+  min-height:300px;
+  height:300px;
+  overflow-y:auto;
+  box-shadow: 0 0 15px #00ff00;
+}
+
+input {
+  width:100%;
+  margin-top:10px;
+  padding:10px;
+  background:black;
+  border:1px solid #00ff00;
+  color:#00ff00;
+  outline:none;
+}
+
+.line {
+  margin: 2px 0;
+}
+
+.cmd {
+  color:#00ff00;
+}
+
+.sys {
+  color:#00ccff;
+}
+
+.err {
+  color:#ff3b3b;
+}
+</style>
+</head>
+
+<body>
+
+<h2>⚡ SYSTEM CONTROL PANEL</h2>
+
+<div class="terminal" id="term">
+<div class="line sys">> ...---------...REAL TIME SYSTEM...---------...</div>
+<div class="line sys">> TYPE panel</div>
+<div class="line sys">> TYPE HELP FOR COMMANDS</div>
+<br>
+</div>
+
+<input id="cmd" placeholder="Enter command..." onkeydown="run(event)">
+
+<script>
+
+function addLine(text, type="cmd"){
+  let term = document.getElementById("term");
+
+  let div = document.createElement("div");
+  div.className = "line " + type;
+  div.innerHTML = "> " + text;
+
+  term.appendChild(div);
+  term.scrollTop = term.scrollHeight;
+}
+
+function run(e){
+  if(e.key === "Enter"){
+
+    let cmd = document.getElementById("cmd");
+    let value = cmd.value.trim().toLowerCase();
+
+    addLine(value);
+
+    if(value === "panel"){
+    window.location.href = "panel.html";
+    }
+
+    if(value === "help"){
+      addLine("COMMANDS: scan / status / clear / info", "sys");
+    }
+
+    else if(value === "scan"){
+      addLine("Scanning network...", "sys");
+
+      setTimeout(()=>{
+        addLine("IP TRACE COMPLETE", "sys");
+        addLine("NO THREATS FOUND", "sys");
+      }, 1000);
+    }
+
+    else if(value === "status"){
+      addLine("ALL SYSTEMS GREEN", "sys");
+    }
+
+    else if(value === "info"){
+      addLine("SYSTEM: HACKER CORE v2.0", "sys");
+      addLine("SECURITY: ACTIVE", "sys");
+    }
+
+    else if(value === "clear"){
+      document.getElementById("term").innerHTML =
+        '<div class="line sys">> SCREEN CLEARED</div>';
+    }
+
+    else{
+      addLine("UNKNOWN COMMAND", "err");
+    }
+
+    cmd.value = "";
+  }
+}
+
+</script>
+
+</body>
+</html>
